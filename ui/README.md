@@ -4,13 +4,8 @@ This directory contains the user interface components for DuckDB, a high-perform
 
 # Pre requirements
 
--   You need to install DuckDB first. Please, follow the instructions in the main README.md file.
--   Set your proxy if you are behind a firewall or VPN.
-
-```         
-set HTTP_PROXY='http://proxy.nss.scot.nhs.uk:3128';
-```
-
+-   You need to install DuckDB. Please, follow the instructions in the main README.md file.
+-   Make sure you have copied the file .duckdbrc in your user folder (C:\Users\your_user_name). This file contains the proxy configuration for duckdb. If you don't copy this file, you won't be able to install extensions and use the user interface.
 -   You need to install ui extension if you want to use the UI functionalities.
 
 ```         
@@ -40,5 +35,3 @@ select * from 'C:\Users\<Your_user>\OneDrive - NHS Scotland\Documents\\beds.csv'
 ![alt text](img/image-2.png)
 
 Since you are using DuckDB on Windows you need to use double backslashes (\\) in the path.
-
-## How to open a duckdb file
