@@ -56,7 +56,7 @@ LOAD httpfs;
 ### How to use duckdb
 
 -   If you already executed duckdb in your terminal/PowerShell you won't need to do it again.
-
+-   There is a folder called **data** in this repository. You can use the files in this folder to practice with duckdb.
 -   If you want to read files from your network and you don't want to deal with absolute/relative long paths. You can use this Windows workaround. Open your file explorer, go to your network folder, keep pressed shift key and right click in an empty space. You will see **Open PowerShell window here** ![alt text](./img/image-8.png)
 
 -   You can write SQL in multiline way. Press enter for multiple lines. A colon (;) means the end of a query.
