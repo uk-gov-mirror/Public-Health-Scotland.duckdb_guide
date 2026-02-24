@@ -1,0 +1,4 @@
+-- Show basic help when starting.
+.print '✓ DuckDB for PHS is ready. Type .help for commands.'
+-- set proxy
+set HTTP_PROXY='http://proxy.nss.scot.nhs.uk:3128';
