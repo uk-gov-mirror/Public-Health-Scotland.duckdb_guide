@@ -1,13 +1,13 @@
 # DuckDB guide
 
-DuckDB is an in-process SQL OLAP database management system. Simple, feature-rich, fast & open source. The current version is 1.4.4 (Feb 2026). If you only want to code in R you have to check R_samples folder.
+DuckDB is an in-process SQL OLAP database management system. Simple, feature-rich, fast & open source. The current version is 1.5.0 (March 2026). If you only want to code in R you have to check R_samples folder.
 
 ## Windows installation
 
 -   You will have a powerfull tool in your CMD/powershell. No need to run R or Python.
 -   We will use winget which is an official Microsoft tool (Windows Package Manager). It is **safe** since it pulls packages from the Microsoft Community Package Manifest Repository. This Microsoft resource has a review process to ensure packages are safe and legitimate.
 -   Open a cmd or Powershell (windows) and run the following command: `winget install DuckDB.cli`
--   If you already have DuckDb and you want to upgrade to the newest version, run this command: `winget upgrade --id DuckDB.cli`
+-   If you already have DuckDb and you want to upgrade to the newest version, run this command: `winget upgrade --id DuckDB.cli`. You may need to reinstall the extensions after upgrading.
 -   There is a file .duckdbrc in this repository which you need to copy in your user folder (C:\Users\your_user_name). This file contains the proxy configuration for duckdb. If you don't copy this file, you won't be able to install extensions and use the user interface.
 ![alt text](./img/image.png)
 
