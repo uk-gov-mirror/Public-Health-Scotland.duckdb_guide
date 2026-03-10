@@ -24,13 +24,12 @@ SELECT column1, column2 FROM view_name;
 
 ## example
 - Download sample.duckdb file from the data folder and open it in the duckdb UI using this command `duckdb sample.duckdb -ui`
-- Run this SQL to see your tables in the duckdb file:
+- Run this SQL to see your tables in the duckdb file (You will see tasks, teams and users tables):
 
 ```sql
 show tables;
 ```
 
-![alt text](./img/image.png)
 
 - Run this SQL to create a view called "v_user_details" that selects the "admissions_day" table:
 
@@ -41,9 +40,7 @@ select
 from teams t inner join users u on t.team_id=u.team_id
 ```
 
-![alt text](./img/image-1.png)
-
--   Run this SQL to query the view:
+-   Run this SQL to query the view (it will return 3 rows from the original DuckDB file):
 
 ```sql
 select 
@@ -51,15 +48,11 @@ select
 from v_user_details
 ```
 
-![alt text](./img/image-2.png)
-
 -   You **must save** this changes to the duckdb file. Run this SQL:
 
 ```sql
 CHECKPOINT;
 ```
-
-![alt text](./img/image-3.png)
 
 Note: 
 -   Views can support join operations, but they do not support insert, update, or delete operations since they are virtual tables.
