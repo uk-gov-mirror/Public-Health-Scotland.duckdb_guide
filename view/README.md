@@ -1,0 +1,67 @@
+This README file helps to understand how views work in duckdb and how to use them. Views are virtual tables that are defined by a SQL query. They do not store data themselves but provide a way to simplify complex queries and improve readability.
+
+# Pre requirements
+-   You need to have duckdb installed. Please, follow the instructions in the main README.md file.
+-   You need to have a duckdb file with some tables to practice with views. You can use the files in the **data** folder of this repository or create your own duckdb file.
+-   You can use the duckdb CLI or the duckdb UI to create and query views.
+
+# Create a view
+To create a view, you can use the following syntax:
+
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2
+FROM table_name
+WHERE condition;
+```
+
+# Query a view
+Once you have created a view, you can query it just like a regular table:
+
+```sql
+SELECT column1, column2 FROM view_name;
+```
+
+## example
+- Download sample.duckdb file from the data folder and open it in the duckdb UI using this command `duckdb sample.duckdb -ui`
+- Run this SQL to see your tables in the duckdb file:
+
+```sql
+show tables;
+```
+
+![alt text](./img/image.png)
+
+- Run this SQL to create a view called "v_user_details" that selects the "admissions_day" table:
+
+```sql
+CREATE VIEW v_user_details AS
+select 
+  t.team_name, u.user_fname,u.user_lname 
+from teams t inner join users u on t.team_id=u.team_id
+```
+
+![alt text](./img/image-1.png)
+
+-   Run this SQL to query the view:
+
+```sql
+select 
+    team_name,user_fname,user_lname 
+from v_user_details
+```
+
+![alt text](./img/image-2.png)
+
+-   You **must save** this changes to the duckdb file. Run this SQL:
+
+```sql
+CHECKPOINT;
+```
+
+![alt text](./img/image-3.png)
+
+Note: 
+-   Views can support join operations, but they do not support insert, update, or delete operations since they are virtual tables.
+-   Views can be used to simplify complex queries by encapsulating them in a single view definition, making it easier to reuse and maintain the logic.
+-   SQL CHECKPOINT is important to save the changes you have made to the duckdb file. If you don't run this command, your view will not be saved and you will lose it when you close the duckdb session.

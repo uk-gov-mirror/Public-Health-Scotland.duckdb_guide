@@ -9,21 +9,25 @@ This directory contains the user interface components for DuckDB, a high-perform
 -   You need to install ui extension if you want to use the UI functionalities.
 
 ```         
-INSTALL ui;
-LOAD ui;
+INSTALL ui;LOAD ui;
 ```
 
--   You can execute DuckDB UI with the following command (set HTTP_PROXY will be needed if you are behind a firewall/VPN):
+-   You have 2 options to open the user interface:
 
-```         
-CALL start_ui();
-```
+| Method           | Pre command      | Command            | Description                                                                     |
+|------------------|------------------|--------------------|---------------------------------------------------------------------------------|
+| DuckDB CLI       | No pre command   | `duckdb -ui`       | Open a CMD/PowerShell and execute this command                                  |
+| Function command | `duckdb`         | `CALL start_ui();` | Open a CMD/PowerShell, run pre command `duckdb` and then run `CALL start_ui();` |
 
 -   You will see this result in your PowerShell/terminal:
 
+Method 1:
+![alt text](img/image-0.png)
+
+Method 2:
 ![Terminal with commands results](img/image.png)
 
--   This command will open a new tab in your default web browser. You can start using DuckDB UI. You will see a blank Notebook.
+-   This command will open a new tab in your default web browser. You can start using DuckDB UI. You will see a blank SQL Notebook.
 
 ## How to read a csv file
 You can run the following command in a cell. You can press the play button on the left of the cell or press ctrl + enter to execute the cell. Make sure to change the path to your csv file:
@@ -39,9 +43,9 @@ The section 1 shows us the cell content, the section 2 shows us the result of th
 Since you are using DuckDB on Windows you need to use double backslashes (\\) in the path.
 
 ## Read a duckdb file
-There are 2 ways to read a duckdb file in the UI. If you open a duckdb file in the UI other users won't be able to read the file.
+There are 2 ways to read a duckdb file in the UI. If you open a duckdb file in the UI **other users won't be able to read the file**.
 
-1. The quickest way is to run a terminal from the duckdb file folder. Open a terminal in the folder where your duckdb file is located and run the command `duckdb sample.duckdb`. You are linking your terminal to the duckdb file. Then you can run the command `CALL start_ui();` and you will be able to see all the tables in the duckdb file in the UI.
+1. The quickest way is to run a terminal from the duckdb file folder. Open a terminal in the folder where your duckdb file is located and run the command `duckdb sample.duckdb -ui`. You are linking your terminal to the duckdb file. 
 
 ![alt text](img/image-3.png)
 
@@ -57,4 +61,4 @@ You can have more than one duckdb file linked to the UI.
 
 ![alt text](img/image-6.png)
 
-You can also detach files using the 3 dots on the right of the duckdb file name in the attached databases section.
+You can also dettach files using the 3 dots on the right of the duckdb file name in the attached databases section.

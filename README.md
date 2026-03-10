@@ -23,33 +23,14 @@ DuckDB is an in-process SQL OLAP database management system. Simple, feature-ric
 -   If you only read csv files, it is not mandatory to install the other extensions. So, you can skip these extensions installation.
 -   If you already executed duckdb in your terminal/PowerShell you won't need to do it again.
 -   If you cannot install extensions, go back an make sure if you copied the file .duckdbrc in your user folder (C:\Users\your_user_name).
--   The excel extension enables you to read and write Excel (.xlsx) files
 
-```         
-INSTALL excel;
-LOAD excel;
-```
-
--   The spatial extension provides support for geospatial data processing
-
-```         
-INSTALL spatial;
-LOAD spatial;
-```
-
--   The sqlite_scanner extension allows DuckDB to directly read and write data from SQLite database file
-
-```         
-INSTALL sqlite_scanner;
-LOAD sqlite_scanner;
-```
-
--   The httpfs extension allows you to read and write remote files over HTTP(S) and S3
-
-```         
-INSTALL httpfs;
-LOAD httpfs;
-```
+| Extension  | Command                                       | Description                                                           |
+|------------|-----------------------------------------------|------------------------|
+| Excel      | `INSTALL excel;LOAD excel;`                   | enables you to read and write Excel (.xlsx) files              |
+| Spatial    | `INSTALL spatial;LOAD spatial;`               | provides support for geospatial data processing                |
+| Sqlite     | `INSTALL sqlite_scanner;LOAD sqlite_scanner;` | allows DuckDB to read and write data from SQLite database file |
+| Httpfs     | `INSTALL httpfs;LOAD httpfs;`                 | allows you to read and write remote files over HTTP(S) and S3  |
+| UI         | `INSTALL ui;LOAD ui;`                         | enables web bassed user interface                              |
 
 ![alt text](./img/image-2.png)
 
@@ -130,6 +111,13 @@ order by avg_amount desc;
 -   Regular expressions for column names using columns function `select HB, columns('Average.*') from beds.csv;`
 -   We can create the pivot of a table `PIVOT beds.csv ON Quarter USING MEAN(PercentageOccupancy) GROUP BY HB;`
 -   It is possible to do the unpivot too `UNPIVOT pivoted.csv ON COLUMNS(* EXCLUDE HB) INTO NAME Quarter VALUE sales;`
+
+## More sections
+
+| Topic        | More info                            |
+|--------------|--------------------------------------|
+| UI           | [View UI README](./ui/README.md)     |
+| DuckDB Views | [View View README](./view/README.md) |
 
 ## Resources
 
