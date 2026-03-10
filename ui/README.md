@@ -22,10 +22,10 @@ INSTALL ui;LOAD ui;
 -   You will see this result in your PowerShell/terminal:
 
 DuckDB CLI Method:
-![This image shows the command result when using DuckDB CLI method](img/image-0.png)
+![command result when using DuckDB CLI method](img/image-0.png)
 
 Method 2:
-![This image shows the command result when using  Function command method](img/image.png)
+![command result when using  Function command method](img/image.png)
 
 -   This command will open a new tab in your default web browser. You can start using DuckDB UI. You will see a blank SQL Notebook.
 
@@ -38,7 +38,7 @@ select * from 'C:\Users\<Your_user>\OneDrive - NHS Scotland\Documents\\beds.csv'
 
 The image bellow contains section 1 which shows us the cell content, section 2 which shows us the result of the query, section 3 which shows us some quick options like download and section 4 which shows us some statistics about the query result.
 
-![Image which highlighs 4 sections related to DuckDB UI](img/image-2.png)
+![4 important sections related to DuckDB UI](img/image-2.png)
 
 Since you are using DuckDB on Windows you need to use double backslashes (\\) in the path.
 
@@ -49,14 +49,14 @@ There are 2 ways to read a duckdb file in the UI. If you open a duckdb file in t
 
 In this case if you create an empty cell you will see the word sample (duckdb file name) on the right of the cell. If you see memory it means this cell is not linked to the duckdb file. You will also see a bar on the left hand side - Attached databases - with all the tables in the duckdb file.
 
-![The image shows the attached file on the right hand side and the DuckDb file tables on the left panel](./img/image-4.png)
+![attached file on the right hand side and the DuckDb file tables on the left panel](./img/image-4.png)
 
 2. The second way occurs when you already opened the user interface with no duckdb file attached. You have to use the left hand bar - **attached databases** secion - to link a duckdb file. You can click on the + icon and then type the duckdb file path (e.g. \\stats\posit_azure_logs\gatzos01\data\secundfile.duckdb). You can also type an alias for the duckdb file. Once you have linked the duckdb file you will be able to see all the tables in the duckdb file in the UI.
 
-![This image shows the popup window to attach a DuckDB file](img/image-5.png)
+![popup window to attach a DuckDB file](img/image-5.png)
 
 You can have more than one duckdb file linked to the UI. 
 
-![This image shows the attached DuckDB files on the left panel](img/image-6.png)
+![attached DuckDB files on the left panel](img/image-6.png)
 
 You can also detach files using the 3 dots on the right of the duckdb file name in the attached databases section.

@@ -9,12 +9,12 @@ DuckDB is an in-process SQL OLAP database management system. Simple, feature-ric
 -   Open a cmd or Powershell (windows) and run the following command: `winget install DuckDB.cli`
 -   If you already have DuckDb and you want to upgrade to the newest version, run this command: `winget upgrade --id DuckDB.cli`. You may need to reinstall the extensions after upgrading.
 -   There is a file .duckdbrc in this repository which you need to copy in your user folder (C:\Users\your_user_name). This file contains the proxy configuration for duckdb. If you don't copy this file, you won't be able to install extensions and use the user interface.
-![This image shows .duckdbrc in Windows 11 file explorer](./img/image.png)
+![.duckdbrc file in Windows 11 file explorer](./img/image.png)
 
 -   Then, you can start using duckdb, you need to run the command in a cmd/porwershell: `duckdb`
 -   You can use the following command to check your installed extension: `SELECT extension_name, installed, description FROM duckdb_extensions();`
 
-![This image shows the available extensions for DuckDB and if they are installed](./img/image-1.png)
+![available extensions for DuckDB and if they are installed](./img/image-1.png)
 
 -   You can exit duckdb using .exit or simply closing the window
 
@@ -36,31 +36,31 @@ DuckDB is an in-process SQL OLAP database management system. Simple, feature-ric
 
 -   If you already executed duckdb in your terminal/PowerShell you won't need to do it again.
 -   There is a folder called **data** in this repository. You can use the files in this folder to practice with duckdb.
--   If you want to read files from your network and you don't want to deal with absolute/relative long paths. You can use this Windows workaround. Open your file explorer, go to your network folder, keep pressed shift key and right click in an empty space. You will see **Open PowerShell window here** ![This image shows DuckDB as part of right click options menu](./img/image-8.png)
+-   If you want to read files from your network and you don't want to deal with absolute/relative long paths. You can use this Windows workaround. Open your file explorer, go to your network folder, keep pressed shift key and right click in an empty space. You will see **Open PowerShell window here** ![DuckDB as part of right click options menu](./img/image-8.png)
 
 -   You can write SQL in multiline way. Press enter for multiple lines. A colon (;) means the end of a query.
 
 -   There are 2 very useful commands to check datasets. They are “describe” and “summarize”. In this example, I am using beds.csv `describe from file_name.csv` or `summarize from file_name.csv`
 
-![This image shows a summarise and describe SQL command example](./img/image-3.png)
+![a summarise and describe SQL command example](./img/image-3.png)
 
 -   It’s time to read an excel file using the function read_xlsx('file_name.xlsx', sheet='sheet_name')
 
-![This image shows how to read an Excel file](./img/image-4.png)
+![how to read an Excel file](./img/image-4.png)
 
 -   If you have a parquet file, it is simple as a csv file
 
 -   If you have a duckdb.file you can easily start duckdb with the name of the file.
 
-![This image shows how to open a duckdb file](./img/image-5.png)
+![how to open a duckdb file](./img/image-5.png)
 
 -   If you already started duckdb with no duck file. You can run "attach" and "use" commands
 
-![This image shows how to attach a DuckDb file after starting duckdb with no files attached](./img/image-7.png)
+![how to attach a DuckDb file after starting duckdb with no files attached](./img/image-7.png)
 
 -   It is the same process if you want to work with a sqlite file:
 
-![This image shows how to open a sqlite file](./img/image-6.png)
+![how to open a sqlite file](./img/image-6.png)
 
 -   If you want to export one table from a duckdb or sqlite database, you can use the command COPY `COPY table_name to ‘file_name.csv’ (format ‘csv’);` `COPY table_name to ‘file_name.parquet’ (format ‘parquet’);` `COPY (select field_name, mean(value) as mean_value from admissions_day group by field_name) to ‘grouped_field_mean.csv’ (format ‘csv’);`
 
@@ -74,7 +74,7 @@ from read_xlsx('demo.xlsx', sheet='sales') a left join read_xlsx('demo.xlsx', sh
 on a.id_country=b.id;
 ```
 
-![This image shows a left join between 2 sheets in the same Excel file](img/image-9.png)
+![a left join between 2 sheets in the same Excel file](img/image-9.png)
 
 ```         
 select a.*, b.country
@@ -82,7 +82,7 @@ from read_xlsx('demo.xlsx', sheet='sales') a full join read_xlsx('demo.xlsx', sh
 on a.id_country=b.id;
 ```
 
-![This image shows a full join between 2 sheets in the same Excel file](img/image-11.png)
+![a full join between 2 sheets in the same Excel file](img/image-11.png)
 
 -   You can have multiple subqueries like this:
 
@@ -102,7 +102,7 @@ on a.id_country=b.id
 order by avg_amount desc;
 ```
 
-![This image shows multiple subqueries to calculate an average value per country](img/image-10.png)
+![multiple subqueries to calculate an average value per country](img/image-10.png)
 
 ## Advance SQL commands
 
