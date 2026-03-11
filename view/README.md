@@ -9,10 +9,12 @@ This README file helps to understand how views work in duckdb and how to use the
 To create a view, you can use the following syntax:
 
 ```sql
+BEGIN;
 CREATE VIEW view_name AS
 SELECT column1, column2
 FROM table_name
 WHERE condition;
+COMMIT;
 ```
 
 # Query a view
@@ -34,10 +36,12 @@ show tables;
 - Run this SQL to create a view called "v_user_details" that selects the "admissions_day" table:
 
 ```sql
+BEGIN;
 CREATE VIEW v_user_details AS
 select 
   t.team_name, u.user_fname,u.user_lname 
-from teams t inner join users u on t.team_id=u.team_id
+from teams t inner join users u on t.team_id=u.team_id;
+COMMIT;
 ```
 
 -   Run this SQL to query the view (it will return 3 rows from the original DuckDB file):
@@ -48,13 +52,7 @@ select
 from v_user_details
 ```
 
--   You **must save** this changes to the duckdb file. Run this SQL:
-
-```sql
-CHECKPOINT;
-```
-
 Note: 
 -   Views can support join operations, but they do not support insert, update, or delete operations since they are virtual tables.
 -   Views can be used to simplify complex queries by encapsulating them in a single view definition, making it easier to reuse and maintain the logic.
--   SQL CHECKPOINT is important to save the changes you have made to the duckdb file. If you don't run this command, your view will not be saved and you will lose it when you close the duckdb session.
+-   SQL BEGIN and COMMIT block is important when you are creating a new object (e.g. tables, views) in your DuckDB file.
