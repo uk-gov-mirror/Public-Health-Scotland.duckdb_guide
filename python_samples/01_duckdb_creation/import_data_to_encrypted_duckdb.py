@@ -8,7 +8,7 @@ load_dotenv()
 csv_path = "data/beds.csv"
 parquet_path = "data/admissions.parquet"
 db_path = "data/encrypted_data.duckdb"
-encryption_key = str(os.getenv('PWD'))
+encryption_key = str(os.getenv('DUCKDB_KEY'))
 
 # Create an encrypted database, if you want a non encrypted file then exclude config argument
 con = duckdb.connect(db_path, config={"password": encryption_key})

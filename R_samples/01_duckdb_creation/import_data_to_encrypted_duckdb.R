@@ -1,6 +1,6 @@
 library(duckdb)
-# library(DBI)
 library(dotenv)
+library(glue)
 
 # Load .env file
 load_dot_env()
@@ -9,47 +9,50 @@ load_dot_env()
 csv_path <- "data/beds.csv"
 parquet_path <- "data/admissions.parquet"
 db_path <- "data/encrypted_data.duckdb"
+encryption_key <- Sys.getenv("DUCKDB_KEY")
 
-# Read password from environment variable
-encryption_key <- Sys.getenv("PWD")
+# 1. Start an in-memory DuckDB
+con <- dbConnect(duckdb::duckdb())
 
-# Create/open encrypted database
-con <- dbConnect(
-  duckdb::duckdb(),
-  dbdir = db_path,
-  config = list(password = encryption_key)
-)
-
-# Import CSV into encrypted database
+# 2. Attach the encrypted database
 dbExecute(
   con,
-  sprintf(
-    "
+  glue("INSTALL httpfs;
+  LOAD httpfs;
+  ATTACH '{db_path}' AS enc (
+      ENCRYPTION_KEY '{encryption_key}',
+      ENCRYPTION_CIPHER 'GCM'
+  );
+  USE enc;")
+)
+
+# 3. Import CSV into encrypted database 
+# you can modify the select statement to specify which columns yo want to import
+dbExecute(
+  con,
+  glue("
     CREATE TABLE beds AS
     SELECT *
-    FROM read_csv_auto('%s')
-    ",
-    csv_path
-  )
+    FROM read_csv_auto('{csv_path}')
+    ")
 )
 
 # Import Parquet into encrypted database
+# you can modify the select statement to specify which columns yo want to import
 dbExecute(
   con,
-  sprintf(
-    "
+  glue("
     CREATE TABLE admissions AS
     SELECT *
-    FROM read_parquet('%s')
-    ",
-    parquet_path
-  )
+    FROM read_parquet('{parquet_path}')
+    ")
 )
 
-cat("Successfully created encrypted DuckDB file and imported data.\n")
+print("Successfully created encrypted DuckDB file and imported data.\n")
 
-# Close connection
+# 4. Disconnect
 dbDisconnect(con, shutdown = TRUE)
+
 
 # -----------------------------------------------------------------------------
 # Test reading the encrypted database
@@ -57,23 +60,28 @@ dbDisconnect(con, shutdown = TRUE)
 
 con <- dbConnect(
   duckdb::duckdb(),
-  dbdir = db_path,
-  read_only = TRUE,
-  config = list(password = encryption_key)
+  read_only = TRUE
+)
+
+dbExecute(
+  con,
+  glue("
+  ATTACH '{db_path}' AS enc (
+      ENCRYPTION_KEY '{encryption_key}',
+      ENCRYPTION_CIPHER 'GCM'
+  );
+  USE enc;")
 )
 
 df <- dbGetQuery(
-  con,
-  "
+  con, "
   SELECT
     QuarterQF,
     HB,
     HBQF,
     Location,
     LocationQF
-  FROM beds
-  "
-)
+  FROM beds")
 
 dbDisconnect(con, shutdown = TRUE)
 
