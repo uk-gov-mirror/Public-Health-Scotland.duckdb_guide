@@ -1,38 +1,67 @@
-import duckdb # package to manage duckdb files
-import os # package to read os settings (e.g. OS environment variables)
-from dotenv import load_dotenv # package to read a .env file (which may contain sensitive data)
+import duckdb
+import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
-# Define your file(s) paths and encryption key
 csv_path = "data/beds.csv"
 parquet_path = "data/admissions.parquet"
 db_path = "data/encrypted_data.duckdb"
-encryption_key = str(os.getenv('DUCKDB_KEY'))
+encryption_key = os.getenv("DUCKDB_KEY")
 
-# Create an encrypted database, if you want a non encrypted file then exclude config argument
-con = duckdb.connect(db_path, config={"password": encryption_key})
+# Start in-memory DuckDB
+con = duckdb.connect()
 
-# Import the CSV file into an encrypted table within the attached database
+# Attach encrypted database
 con.execute(f"""
-    CREATE TABLE beds AS 
-    SELECT * FROM read_csv_auto('{csv_path}');
+    INSTALL httpfs;
+    LOAD httpfs;
+    ATTACH '{db_path}' AS enc (
+        ENCRYPTION_KEY '{encryption_key}',
+        ENCRYPTION_CIPHER 'GCM'
+    );
+    USE enc;
 """)
 
-# Import the parquet file into an encrypted table within the attached database
+# Import CSV
 con.execute(f"""
-    CREATE TABLE admissions AS 
-    SELECT * FROM read_csv_auto('{parquet_path}');
+    CREATE TABLE beds AS
+    SELECT *
+    FROM read_csv_auto('{csv_path}');
 """)
 
-print("Successfully created encrypted DuckDB file and imported CSV data.")
+# Import Parquet
+con.execute(f"""
+    CREATE TABLE admissions AS
+    SELECT *
+    FROM read_parquet('{parquet_path}');
+""")
 
-# Close the connection
+print("Successfully created encrypted DuckDB file and imported data.")
+
 con.close()
 
-# test data
-con = duckdb.connect(db_path, read_only=True, config={"password": encryption_key})
-df = con.execute('SELECT QuarterQF,HB,HBQF,Location,LocationQF FROM beds').fetchdf()
+# Open DuckDB read-only
+con = duckdb.connect()
+
+con.execute(f"""
+    ATTACH '{db_path}' AS enc (
+        ENCRYPTION_KEY '{encryption_key}',
+        ENCRYPTION_CIPHER 'GCM'
+    );
+    USE enc;
+""")
+
+df = con.execute("""
+    SELECT
+        QuarterQF,
+        HB,
+        HBQF,
+        Location,
+        LocationQF
+    FROM beds
+""").fetchdf()
+
 con.close()
-print(df.dtypes)
+
 print(df)
